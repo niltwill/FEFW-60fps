@@ -1,0 +1,10 @@
+@nsobid-DB93B0125F4850601D61C3EDDE012F8EB2ECFE77
+
+# Fire Emblem: Fortune's Weave [04007EF01F8AE000] v1.1.0 - 60 FPS
+
+@flag print_values
+@flag offset_shift 0x100
+
+@enabled
+007BF1AC 89078052
+@stop
