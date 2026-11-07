@@ -1,0 +1,20 @@
+# Fire Emblem: Fortune's Weave (04007EF01F8AE000) — 60 fps, speed unchanged
+#
+# The game's graphics object holds:
+#   +0x1d8 display rate (60)
+#   +0x1dc target frame rate (60 at title/menus, 30 in gameplay)
+#   +0x1e0 longest present interval (5)
+# The present asks for interval min(+0x1e0, +0x1d8 / min(+0x1d8, +0x1dc)), and 59 readers
+# step the game by 60.0 / target, so target=60 runs at 60 fps with the same speed.
+#
+# The game rewrites the field to 30 when gameplay starts (main+0x7bf1c0), so the value has to be
+# re-applied every frame -> ALL_FPS (FPSLocker re-writes it periodically), not MASTER_WRITE.
+#
+# MAIN pointer: 0x21e60d8, field: 0x1dc (v131072). These move between builds; re-derive them with
+# nxnative's pattern finder (dm/tools/fps_target.py) or by searching for the readers of 60.0/target.
+
+ALL_FPS:
+  - type: evaluate_write
+    address: [MAIN, 0x21e60d8, 0x1dc]
+    value_type: uint32
+    value: 60
